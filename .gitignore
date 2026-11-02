@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# AI Models (large binary files - too large for GitHub)
+models/
+*.bin
+*.gguf
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.pkl
+
+# Data folder (contains large media files ~20GB)
+data/
+
+# Archive
+archive/
+
+# Binary/compiled executables
+bin/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

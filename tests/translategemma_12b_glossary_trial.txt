@@ -1,0 +1,5 @@
+Translate these Chinese historical-drama lines into natural Thai. Preserve the line numbers and translate only the dialogue. Use this fixed cast glossary exactly: 青儿 = ชิงเอ๋อร์ (woman, wife of 林远); 林远 = หลินหยวน (eldest son); 明轩 = หมิงเซวียน (male cousin); 大嫂 = พี่สะใภ้ (elder brother's wife); 公公 = พ่อสามี (father-in-law); 家主 = ประมุขตระกูล. Do not replace names with other names. Keep family relationships correct.
+2. 回爹,青儿在后厨看汤,马上就来。
+8. 娘亲安好。她托外甥带句话:家主之位,也该定了。
+14. 二哥,策哥,表哥,你们别吵啦,大嫂的汤要凉了!
+20. 既然人齐了,为父再说一遍:林家家主之位,传给你们的大哥,林远。

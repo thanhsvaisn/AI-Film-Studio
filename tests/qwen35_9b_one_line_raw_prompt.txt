@@ -1,0 +1,8 @@
+<|im_start|>user
+Translate this Chinese historical-drama dialogue into natural Thai. Output only the Thai translation, no reasoning or explanation:
+娘亲安好。她托外甥带句话：家主之位，也该定了。<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+

@@ -1,0 +1,7 @@
+<start_of_turn>user
+You are a professional Chinese (zh) to Thai (th) translator. Your goal is to accurately convey the meaning and nuances of the original Chinese text while adhering to Thai grammar, vocabulary, and cultural sensitivities.
+Produce only the Thai translation, without any additional explanations or commentary. Please translate the following Chinese text into Thai:
+
+
+娘亲安好。她托外甥带句话：家主之位，也该定了。<end_of_turn>
+<start_of_turn>model

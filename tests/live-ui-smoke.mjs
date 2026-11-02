@@ -1,0 +1,15 @@
+import {chromium} from 'playwright';
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:900}});
+const errors=[];
+page.on('pageerror',error=>errors.push(error.message));
+await page.goto('http://127.0.0.1:8765/');
+await page.getByRole('heading',{name:'Tổng quan'}).waitFor();
+await page.screenshot({path:'../preview-reference-live.png',fullPage:true});
+await page.getByRole('button',{name:'Dự án',exact:true}).click();
+await page.getByRole('heading',{name:'Dự án',exact:true}).waitFor();
+await page.getByRole('button',{name:'Kênh YouTube',exact:true}).click();
+await page.getByRole('heading',{name:'Kênh YouTube'}).waitFor();
+if(errors.length)throw Error(errors.join('\n'));
+console.log('Live UI smoke passed: real backend health, projects and channels.');
+await browser.close();

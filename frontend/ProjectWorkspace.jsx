@@ -1,0 +1,19 @@
+import React,{useMemo,useState} from 'react';
+import {ArrowUpRight,Check,Filter,FolderOpen,Plus,Search,Upload,Video} from 'lucide-react';
+import {activeStatuses,statusLabel} from './ProductionSteps.jsx';
+
+const filters=[['all','Tất cả'],['active','Đang xử lý'],['completed','Hoàn tất'],['attention','Cần xử lý'],['draft','Bản nháp']];
+function match(project,id){return id==='all'||(id==='active'&&activeStatuses.has(project.status))||(id==='completed'&&project.status==='completed')||(id==='attention'&&['failed','needs_attention'].includes(project.status))||(id==='draft'&&project.status==='draft')}
+export default function ProjectWorkspace({projects,open,onNew,onBatch}){
+ const [query,setQuery]=useState(''),[filter,setFilter]=useState('all'),[limit,setLimit]=useState(30);
+ const visible=useMemo(()=>projects.filter(p=>match(p,filter)&&`${p.name} ${p.locale}`.toLocaleLowerCase('vi').includes(query.trim().toLocaleLowerCase('vi'))),[projects,query,filter]);
+ const counts=Object.fromEntries(filters.map(([id])=>[id,projects.filter(p=>match(p,id)).length]));
+ return <div className="project-workspace"><div className="workspace-page-head"><div><span className="section-kicker">SẢN XUẤT / DỰ ÁN</span><h1>Thư viện dự án</h1><p>{projects.length} bản xuất · theo dõi trạng thái và mở Studio để kiểm tra từng video.</p></div><div className="workspace-head-actions"><button onClick={onBatch}><FolderOpen size={16}/> Nhập hàng loạt</button><button className="button-primary" onClick={onNew}><Plus size={16}/> Dự án mới</button></div></div>
+  <div className="project-summary"><div><span>Tổng bản xuất</span><strong>{projects.length}</strong></div><div><span>Đang xử lý</span><strong>{counts.active}</strong></div><div><span>Hoàn tất</span><strong>{counts.completed}</strong></div><div><span>Cần xử lý</span><strong>{counts.attention}</strong></div></div>
+  <section className="project-table-panel"><div className="project-table-toolbar"><div className="project-tabs">{filters.map(([id,label])=><button key={id} className={filter===id?'active':''} onClick={()=>{setFilter(id);setLimit(30)}}>{label}<span>{counts[id]}</span></button>)}</div><label className="project-search"><Search size={16}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Tìm tên hoặc ngôn ngữ" aria-label="Tìm dự án"/></label></div>
+   <div className="project-table-head"><span>Dự án</span><span>Ngôn ngữ</span><span>Trạng thái</span><span>Tiến độ</span><span/></div>
+   <div className="project-table-body">{visible.length?visible.slice(0,limit).map((p,index)=><button key={p.id} className="project-table-row" onClick={()=>open(p)}><span className="project-table-name"><span className={'project-table-art art-'+index%5}><Video size={19}/></span><span><strong>{p.name}</strong><small>{Number.isFinite(Number(p.duration))?`${(Number(p.duration)/60).toFixed(1)} phút`:'Chưa rõ thời lượng'} · {p.audio_mode==='approved'?'WAV đã duyệt':'Giọng AI'}</small></span></span><span className="project-table-locale">{p.locale||'—'}</span><span><span className={'status '+p.status}>{statusLabel[p.status]||p.status}</span></span><span className="project-table-progress"><i><b style={{width:`${Math.max(0,Math.min(100,Number(p.progress)||0))}%`}}/></i><strong>{p.progress||0}%</strong></span><ArrowUpRight size={16}/></button>):<div className="project-table-empty"><FolderOpen size={28}/><strong>{projects.length?'Không tìm thấy dự án phù hợp':'Chưa có dự án'}</strong><p>{projects.length?'Thử từ khóa hoặc trạng thái khác.':'Nhập video và SRT để bắt đầu sản xuất.'}</p>{!projects.length&&<button className="button-primary" onClick={onNew}><Plus size={15}/> Tạo dự án đầu tiên</button>}</div>}</div>
+   {visible.length>limit&&<div className="project-table-more"><button onClick={()=>setLimit(x=>x+30)}>Hiển thị thêm {Math.min(30,visible.length-limit)} dự án</button></div>}
+  </section>
+ </div>;
+}
