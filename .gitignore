@@ -32,6 +32,10 @@ archive/
 # Binary/compiled executables
 bin/
 
+# Node.js
+frontend/node_modules/
+node_modules/
+
 # IDE
 .vscode/
 .idea/
